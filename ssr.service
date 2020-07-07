@@ -1,0 +1,15 @@
+[Unit]
+Description=ShadowsocksR-service
+After=network-online.target
+Requires=network-online.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/python /usr/local/shadowsocksr/shadowsocks/server.py -c /etc/shadowsocksr/user-config.json
+ExecStop=/bin/kill -9 $MAINPID
+ExecReload=/bin/kill -9 $MAINPID
+ExecReload=/usr/bin/python /usr/local/shadowsocksr/shadowsocks/server.py -c /etc/shadowsocksr/user-config.json
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
